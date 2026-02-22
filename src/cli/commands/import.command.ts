@@ -8,17 +8,8 @@ export class ImportCommand implements Command {
     return '--import';
   }
 
-  private onImportedLine(line: string) {
-    const offer = createOffer(line);
-    console.info(offer);
-  }
-
-  private onCompleteImport(count: number) {
-    console.info(chalk.green(`${count} rows imported.`));
-  }
-
-  public async execute(...parameters: string[]): Promise<void> {
-    const [filename] = parameters;
+  public async execute(...params: string[]): Promise<void> {
+    const [filename] = params;
     const fileReader = new TSVFileReader(filename.trim());
 
     fileReader.on('line', this.onImportedLine);
@@ -30,5 +21,14 @@ export class ImportCommand implements Command {
       console.error(chalk.red(`Can't import data from file: ${filename}`));
       console.error(chalk.red(getErrorMessage(error)));
     }
+  }
+
+  private onImportedLine(line: string) {
+    const offer = createOffer(line);
+    console.info(offer);
+  }
+
+  private onCompleteImport(count: number) {
+    console.info(chalk.green(`${count} rows imported.`));
   }
 }
