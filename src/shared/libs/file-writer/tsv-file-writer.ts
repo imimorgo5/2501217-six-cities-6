@@ -15,7 +15,7 @@ export class TSVFileWriter implements FileWriter {
 
   public async write(row: string): Promise<unknown> {
     const writeSuccess = this.stream.write(`${row}\n`);
-    if (! writeSuccess) {
+    if (!writeSuccess) {
       return new Promise((resolve) => {
         this.stream.once('drain', () => resolve(true));
       });
