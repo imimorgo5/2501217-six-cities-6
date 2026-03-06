@@ -1,5 +1,7 @@
+import { CityName } from './index.js';
+
 export type City = {
-  name: string;
+  name: CityName;
   latitude: number;
   longitude: number;
 }

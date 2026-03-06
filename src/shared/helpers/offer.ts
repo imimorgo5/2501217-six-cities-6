@@ -1,4 +1,4 @@
-import { Convenience, Offer, OfferType, UserType } from '../types/index.js';
+import { Convenience, Offer, OfferType, UserType, CityName } from '../types/index.js';
 
 export function createOffer(offerData: string): Offer {
   const [
@@ -6,8 +6,6 @@ export function createOffer(offerData: string): Offer {
     description,
     postDate,
     city,
-    cityLatitude,
-    cityLongitude,
     previewPath,
     images,
     isPremium,
@@ -24,8 +22,7 @@ export function createOffer(offerData: string): Offer {
     authorPassword,
     authorType,
     commentsCount,
-    latitude,
-    longitude,
+    coordinates,
   ] = offerData.replace('\n', '').split('\t');
 
   const author = {
@@ -36,17 +33,16 @@ export function createOffer(offerData: string): Offer {
     type: UserType[authorType as keyof typeof UserType]
   };
 
-  const offerCity = {
-    name: city,
-    latitude: Number.parseFloat(cityLatitude),
-    longitude: Number.parseFloat(cityLongitude)
+  const offerCoordinates = {
+    latitude: Number.parseFloat(coordinates.split(',')[0]),
+    longitude: Number.parseFloat(coordinates.split(',')[1])
   };
 
   return {
     title,
     description,
     postDate: new Date(postDate),
-    city: offerCity,
+    city: CityName[city as keyof typeof CityName],
     previewPath,
     images: images.split(','),
     isPremium: isPremium === 'true',
@@ -59,7 +55,6 @@ export function createOffer(offerData: string): Offer {
     conveniences: conveniences.split(',').map((convenience) => Convenience[convenience as keyof typeof Convenience]),
     author,
     commentsCount: Number.parseInt(commentsCount, 10),
-    latitude: Number.parseFloat(latitude),
-    longitude: Number.parseFloat(longitude)
+    coordinates: offerCoordinates
   };
 }

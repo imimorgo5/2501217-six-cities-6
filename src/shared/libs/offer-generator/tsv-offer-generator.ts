@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { MockServerData, Convenience, OfferType, UserType, City } from '../../types/index.js';
+import { MockServerData, Convenience, OfferType, UserType, CityName } from '../../types/index.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import generator from 'generate-password';
 
@@ -19,10 +19,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const postDate = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
       .toISOString();
-    const cityObj = getRandomItem<City>(this.mockData.cities);
-    const city = cityObj.name;
-    const cityLatitude = cityObj.latitude;
-    const cityLongitude = cityObj.longitude;
+    const city = getRandomItem<CityName>(this.mockData.cities);
     const previewPath = getRandomItem<string>(this.mockData.images);
     const images = this.mockData.images.join(',');
     const isPremium = generateRandomValue(0, 1) === 1;
@@ -39,16 +36,13 @@ export class TSVOfferGenerator implements OfferGenerator {
     const authorPassword = generator.generate({ length: 10, numbers: true });
     const authorType = getRandomItem<string>(Object.keys(UserType));
     const commentsCount = generateRandomValue(0, 100);
-    const latitude = generateRandomValue(cityLatitude - 0.5, cityLatitude + 0.5, 6);
-    const longitude = generateRandomValue(cityLongitude - 0.5, cityLongitude + 0.5, 6);
+    const coordinates = `${generateRandomValue(-90, 90, 6)},${generateRandomValue(-180, 180, 6)}`;
 
     return [
       title,
       description,
       postDate,
       city,
-      cityLatitude,
-      cityLongitude,
       previewPath,
       images,
       isPremium,
@@ -65,8 +59,7 @@ export class TSVOfferGenerator implements OfferGenerator {
       authorPassword,
       authorType,
       commentsCount,
-      latitude,
-      longitude,
+      coordinates
     ].join('\t');
   }
 }
