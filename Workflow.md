@@ -76,6 +76,8 @@ npm run cli -- <Команда> [--Параметры]
 - `--version` - выводит номер версии
 - `--help` - печатает этот текст
 - `--import <path>` - импортирует данные из TSV
+- `--import <path> <db-uri> <salt>` - импортирует данные из TSV в MongoDB
+- `--import <path> <user> <password> <host> <db> <salt>` - импортирует данные из TSV в MongoDB (параметры подключения отдельно)
 - `--generate <n> <path> <url>` - генерирует произвольное количество тестовых данных
 
 ### Запуск JSON-сервера с данными из файла /mocks/mock-server-data.json
