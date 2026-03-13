@@ -5,12 +5,14 @@ import { Container } from 'inversify';
 import { Component } from './shared/types/index.js';
 import { createUserContainer } from './shared/modules/user/index.js';
 import { createOfferContainer } from './shared/modules/offer/index.js';
+import { createCommentContainer } from './shared/modules/comment/index.js';
 
 async function bootstrap(): Promise<void> {
   const mainContainer = new Container();
   createCliApplicationContainer(mainContainer);
   createUserContainer(mainContainer);
   createOfferContainer(mainContainer);
+  createCommentContainer(mainContainer);
 
   const cliApplication = mainContainer.get<CLIApplication>(Component.CliApplication);
 
