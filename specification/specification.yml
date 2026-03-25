@@ -79,7 +79,7 @@ paths:
         "404":
           description: Предложение не найдено
 
-    put:
+    patch:
       tags: [offers]
       summary: Редактирование предложения
       security:
@@ -244,7 +244,7 @@ paths:
           description: Предложение не найдено
 
   # ПОЛЬЗОВАТЕЛИ
-  /users/registration:
+  /users/register:
     post:
       tags: [users]
       summary: Регистрация нового пользователя
