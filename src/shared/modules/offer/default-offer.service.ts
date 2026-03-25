@@ -24,15 +24,15 @@ export class DefaultOfferService implements OfferService {
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 
-    return result;
+    return result.populate('authorId');
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel.findById(offerId).populate('authorId').exec();
   }
 
-  public async find(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find({}).sort({ createdAt: SortType.Down }).limit(DEFAULT_OFFER_COUNT).exec();
+  public async find(limit = DEFAULT_OFFER_COUNT): Promise<DocumentType<OfferEntity>[]> {
+    return this.offerModel.find({}).populate('authorId').sort({ createdAt: SortType.Down }).limit(limit).exec();
   }
 
   public async deleteById(offerId: string): Promise<DeleteResult> {
@@ -40,11 +40,11 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findOneAndUpdate({ _id: offerId }, dto, { new: true });
+    return this.offerModel.findOneAndUpdate({ _id: offerId }, dto, { new: true }).populate('authorId');
   }
 
   public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find({ 'city': city, isPremium: true }).sort({ createdAt: SortType.Down }).limit(DEFAULT_PREMIUM_OFFER_COUNT).exec();
+    return this.offerModel.find({ 'city': city, isPremium: true }).populate('authorId').sort({ createdAt: SortType.Down }).limit(DEFAULT_PREMIUM_OFFER_COUNT).exec();
   }
 
   public async incCommentCount(offerId: string): Promise<void> {
@@ -76,7 +76,7 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findFavorite(userId: string): Promise<DocumentType<OfferEntity>[]> {
-    const offers = await this.offerModel.find({ favoriteByUsers: userId }).exec();
+    const offers = await this.offerModel.find({ favoriteByUsers: userId }).populate('authorId').exec();
     return offers;
   }
 

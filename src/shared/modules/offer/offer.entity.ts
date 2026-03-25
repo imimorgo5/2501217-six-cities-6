@@ -1,6 +1,6 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
 import { CityName, Convenience, OfferType } from '../../types/index.js';
-import { UserEntity } from '../user/user.entity.js';
+import type { UserEntity } from '../user/user.entity.js';
 import { CoordinatesSchema } from './coordinates.schema.js';
 
 export interface OfferEntity extends defaultClasses.Base { }
@@ -109,9 +109,15 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    ref: UserEntity
+    ref: 'UserEntity'
   })
   public authorId!: Ref<UserEntity>;
+
+  @prop({
+    ref: 'UserEntity',
+    default: [],
+  })
+  public favoriteByUsers!: Ref<UserEntity>[];
 
   @prop({ default: 0 })
   public commentsCount!: number;
