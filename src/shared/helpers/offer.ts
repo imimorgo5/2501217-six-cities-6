@@ -31,7 +31,7 @@ export function createOffer(offerData: string): Offer {
   const author = {
     name: authorName,
     email: authorEmail,
-    avatar: authorAvatarPath,
+    avatarPath: authorAvatarPath,
     password: authorPassword,
     type: UserType[authorType as keyof typeof UserType]
   };
