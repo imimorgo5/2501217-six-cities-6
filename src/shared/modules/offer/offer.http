@@ -15,7 +15,6 @@ Content-Type: application/json
     "apartment-3.jpg"
   ],
   "isPremium": false,
-  "isFavorite": false,
   "rating": 4.5,
   "type": "Apartment",
   "roomsCount": 5,
@@ -25,8 +24,6 @@ Content-Type: application/json
     "Washer",
     "Towels"
   ],
-  "authorId": "62711a50b0e24a624d49ffdc",
-  "commentsCount": 0,
   "coordinates": {
     "latitude": 50.938361,
     "longitude": 6.959974
@@ -65,7 +62,6 @@ Content-Type: application/json
     "apartment-3.jpg"
   ],
   "isPremium": false,
-  "isFavorite": false,
   "rating": 4.5,
   "type": "Apartment",
   "roomsCount": 5,
@@ -75,7 +71,6 @@ Content-Type: application/json
     "Washer",
     "Towels"
   ],
-  "commentsCount": 0,
   "coordinates": {
     "latitude": 50.938361,
     "longitude": 6.959974
