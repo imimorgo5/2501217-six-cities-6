@@ -25,12 +25,12 @@
       "Dusseldorf"
     ],
     "images": [
-      "apartment-1.jpg",
-      "apartment-2.jpg",
-      "apartment-3.jpg",
-      "apartment-4.jpg",
-      "apartment-5.jpg",
-      "apartment-6.jpg"
+      "https://img.freepik.com/premium-photo/cozy-home-insulation_810293-158980.jpg",
+      "https://img.freepik.com/premium-photo/modern-minimalistic-interior-design-light-bright-monochrome-room-with-black-white-furniture-clean-white-walls-huge-windows_267786-4897.jpg",
+      "https://img.freepik.com/free-photo/modern-apartment-with-beautiful-furniture-wide-window_1268-27958.jpg",
+      "https://img.freepik.com/premium-photo/screwdriver-stands-new-furniture-sofa-home_493343-29578.jpg",
+      "https://img.freepik.com/free-photo/mid-century-interior-design_23-2151902083.jpg",
+      "https://img.freepik.com/free-photo/realistic-interior-design-with-furniture_23-2151439772.jpg"
     ],
     "authors": [
       "urban_nomad",
@@ -48,13 +48,6 @@
       "modern.living@example.com",
       "travel.nest@example.com"
     ],
-    "avatars": [
-      "avatar-1.png",
-      "avatar-2.png",
-      "avatar-3.png",
-      "avatar-4.png",
-      "avatar-5.png",
-      "avatar-6.png"
-    ]
+    "avatar": "/static/default-avatar.png"
   }
 }
