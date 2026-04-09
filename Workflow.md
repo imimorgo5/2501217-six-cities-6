@@ -2,36 +2,92 @@
 
 ## Запуск проекта
 
-1. Установите Node.js и npm версии из `package.json` (`engines.node`, `engines.npm`).
-2. Установите зависимости:
+### 1) Требования
+
+Перед стартом убедитесь, что установлены:
+
+- Node.js и npm версий, указанных в `package.json` (`engines.node`, `engines.npm`);
+- Docker и Docker Compose (если MongoDB запускается через `docker-compose.yml`).
+
+Проверить версии можно так:
+
+```bash
+node -v
+npm -v
+docker -v
+docker compose version
+```
+
+### 2) Установка зависимостей
+
+В корне проекта выполните:
 
 ```bash
 npm install
 ```
 
-3. Скопируйте переменные окружения:
+### 3) Подготовка переменных окружения
+
+Создайте локальный `.env` из шаблона:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Заполните `.env` реальными значениями (особенно `JWT_SECRET`).
-5. Запустите MongoDB (например, через `docker-compose.yml`):
+После этого проверьте значения в `.env`. Минимально важно задать корректные:
+
+- `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`;
+- `JWT_SECRET`;
+- `SALT`.
+
+### 4) Запуск MongoDB
+
+Рекомендуемый способ для локальной разработки:
 
 ```bash
 docker compose up -d
 ```
 
-6. Запустите REST API:
+Проверка, что контейнеры запущены:
+
+```bash
+docker compose ps
+```
+
+### 5) Запуск REST API в режиме разработки
 
 ```bash
 npm run start:dev
 ```
 
-Для production-запуска:
+Сервис стартует через `nodemon` и автоматически перезапускается при изменениях в исходниках.
+
+### 6) Production-запуск
 
 ```bash
 npm start
+```
+
+Команда выполняет сборку (`build`) и запускает скомпилированную версию из `dist`.
+
+### 7) Быстрая проверка после старта
+
+- Убедитесь, что приложение запустилось без ошибок валидации `.env`.
+- Проверьте доступность API, например запросом:
+
+```bash
+curl http://localhost:4000/offers
+```
+
+Если `PORT` в `.env` изменён, используйте соответствующий порт.
+
+### 8) Остановка окружения
+
+- Остановить REST API: `Ctrl + C` в терминале.
+- Остановить MongoDB-контейнеры:
+
+```bash
+docker compose down
 ```
 
 ## Переменные окружения
@@ -39,6 +95,7 @@ npm start
 Для REST-сервиса используется `.env` (пример: `.env.example`).
 
 - `PORT=4000` — порт REST API сервера.
+- `HOST=localhost` - хост REST API сервера.
 - `SALT=salt` — соль для хеширования паролей.
 - `DB_HOST=127.0.0.1` — хост MongoDB.
 - `DB_USER=admin` — пользователь MongoDB.
@@ -46,7 +103,8 @@ npm start
 - `DB_PORT=27017` — порт MongoDB.
 - `DB_NAME=six-cities` — имя базы данных.
 - `UPLOAD_DIRECTORY=upload` — директория хранения загружаемых файлов.
-- `JWT_SECRET=secret` — секрет подписи JWT-токенов.
+- `STATIC_DIRECTORY_PATH=static` - директория хранения статический файлов.
+- `JWT_SECRET=CpvUxK5FSGdIbNNmqqArLxq9EjAHTSHb` — секрет подписи JWT-токенов.
 
 ## Сценарии
 

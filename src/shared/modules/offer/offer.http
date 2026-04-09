@@ -8,15 +8,14 @@ Content-Type: application/json
   "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
   "postDate": "2026-03-08T23:17:22.442Z",
   "city": "Cologne",
-  "previewPath": "preview.jpg",
+  "previewUrl": "https://example.com/images/preview.jpg",
   "images": [
-    "apartment-1.jpg",
-    "apartment-2.jpg",
-    "apartment-3.jpg"
+    "https://example.com/images/apartment-1.jpg",
+    "https://example.com/images/apartment-2.jpg",
+    "https://example.com/images/apartment-3.jpg"
   ],
   "isPremium": false,
-  "rating": 4.5,
-  "type": "Apartment",
+  "type": "apartment",
   "roomsCount": 5,
   "guestsCount": 7,
   "price": 60000,
@@ -55,15 +54,14 @@ Content-Type: application/json
   "title": "Современные апартаменты рядом с парком",
   "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
   "city": "Cologne",
-  "previewPath": "preview.jpg",
+  "previewUrl": "https://example.com/images/preview.jpg",
   "images": [
-    "apartment-1.jpg",
-    "apartment-2.jpg",
-    "apartment-3.jpg"
+    "https://example.com/images/apartment-1.jpg",
+    "https://example.com/images/apartment-2.jpg",
+    "https://example.com/images/apartment-3.jpg"
   ],
   "isPremium": false,
-  "rating": 4.5,
-  "type": "Apartment",
+  "type": "apartment",
   "roomsCount": 5,
   "guestsCount": 7,
   "price": 60000,
