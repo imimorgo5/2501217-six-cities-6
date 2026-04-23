@@ -6,13 +6,16 @@ import { MockServerData } from '../../shared/types/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
 import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
+import { COMMAND_BEGINNING } from '../cli.constant.js';
+
+const COMMAND_NAME = `${COMMAND_BEGINNING}generate`;
 
 @injectable()
 export class GenerateCommand implements Command {
   private initialData: MockServerData;
 
   public getName(): string {
-    return '--generate';
+    return COMMAND_NAME;
   }
 
   public async execute(...params: string[]): Promise<void> {
