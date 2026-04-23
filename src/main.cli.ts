@@ -23,7 +23,7 @@ async function bootstrap(): Promise<void> {
     mainContainer.get<GenerateCommand>(Component.GenerateCommand),
   ]);
 
-  await cliApplication.processCommand(process.argv);
+  await cliApplication.executeCommand(process.argv);
 }
 
 bootstrap();

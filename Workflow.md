@@ -34,11 +34,15 @@ npm install
 cp .env.example .env
 ```
 
-После этого проверьте значения в `.env`. Минимально важно задать корректные:
+После этого проверьте значения в `.env`.
 
-- `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`;
+Обязательные для запуска значения:
+
+- `DB_USER`, `DB_PASSWORD`;
 - `JWT_SECRET`;
 - `SALT`.
+
+Остальные параметры имеют значения по умолчанию в конфиге (`PORT`, `HOST`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `UPLOAD_FILES_DIRECTORY`, `STATIC_FILES_DIRECTORY`, `JWT_ALGORITHM`, `JWT_EXPIRED`).
 
 ### 4) Запуск MongoDB
 
@@ -102,9 +106,11 @@ docker compose down
 - `DB_PASSWORD=test` — пароль MongoDB.
 - `DB_PORT=27017` — порт MongoDB.
 - `DB_NAME=six-cities` — имя базы данных.
-- `UPLOAD_DIRECTORY=upload` — директория хранения загружаемых файлов.
-- `STATIC_DIRECTORY_PATH=static` - директория хранения статический файлов.
+- `UPLOAD_FILES_DIRECTORY=upload` — директория хранения загружаемых файлов.
+- `STATIC_FILES_DIRECTORY=static` - директория хранения статический файлов.
 - `JWT_SECRET=CpvUxK5FSGdIbNNmqqArLxq9EjAHTSHb` — секрет подписи JWT-токенов.
+- `JWT_ALGORITHM=HS256` — алгоритм подписи JWT.
+- `JWT_EXPIRED=2d` — время жизни JWT-токена.
 
 ## Сценарии
 
@@ -131,6 +137,7 @@ npm run cli -- --<command> [--arguments]
 
 - `--version` — вывод версии приложения.
 - `--help` — вывод справки по командам.
-- `--import <path> <db-uri> <salt>` — импорт TSV в MongoDB.
-- `--import <path> <user> <password> <host> <db> <salt>` — импорт TSV c параметрами подключения по частям.
+- `--import <path>` - импорт данных из TSV в MongoDB c параметрами подключения из `.env`.
+- `--import <path> <db-uri> <salt>` — импорт данных из TSV в MongoDB.
+- `--import <path> <user> <password> <host> <port> <db> <salt>` — импорт данных из TSV в MongoDB c параметрами подключения по частям.
 - `--generate <n> <path> <url>` — генерация TSV с тестовыми предложениями.

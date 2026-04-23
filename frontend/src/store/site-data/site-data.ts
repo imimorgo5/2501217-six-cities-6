@@ -80,19 +80,31 @@ export const siteData = createSlice({
       .addCase(postFavorite.fulfilled, (state, action) => {
         const updatedOffer = action.payload;
         state.offers = state.offers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
+        state.premiumOffers = state.premiumOffers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
 
         if (state.offer && state.offer.id === updatedOffer.id) {
           state.offer = updatedOffer;
         }
 
         if (updatedOffer.isFavorite) {
-          state.favoriteOffers = state.favoriteOffers.concat(updatedOffer);
+          const favoriteOffer = state.favoriteOffers.find((offer) => offer.id === updatedOffer.id);
+          if (favoriteOffer) {
+            state.favoriteOffers = state.favoriteOffers.map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
+          } else {
+            state.favoriteOffers = state.favoriteOffers.concat(updatedOffer);
+          }
         } else {
           state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) => favoriteOffer.id !== updatedOffer.id);
         }
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.favoriteOffers = [];
+        state.offers = state.offers.map((offer) => ({ ...offer, isFavorite: false }));
+        state.premiumOffers = state.premiumOffers.map((offer) => ({ ...offer, isFavorite: false }));
+
+        if (state.offer) {
+          state.offer = { ...state.offer, isFavorite: false };
+        }
       });
   }
 });

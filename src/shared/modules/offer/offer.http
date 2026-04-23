@@ -2,17 +2,21 @@
 ## Создать новое объявление
 POST http://localhost:4000/offers HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "title": "Современные апартаменты рядом с парком",
   "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
   "postDate": "2026-03-08T23:17:22.442Z",
   "city": "Cologne",
-  "previewUrl": "https://example.com/images/preview.jpg",
+  "previewUrl": "https://img.freepik.com/premium-photo/living-room-with-view-city-cityscape_501340-674.jpg",
   "images": [
-    "https://example.com/images/apartment-1.jpg",
-    "https://example.com/images/apartment-2.jpg",
-    "https://example.com/images/apartment-3.jpg"
+    "https://img.freepik.com/premium-photo/cozy-home-insulation_810293-158980.jpg",
+    "https://img.freepik.com/premium-photo/modern-minimalistic-interior-design-light-bright-monochrome-room-with-black-white-furniture-clean-white-walls-huge-windows_267786-4897.jpg",
+    "https://img.freepik.com/free-photo/modern-apartment-with-beautiful-furniture-wide-window_1268-27958.jpg",
+    "https://img.freepik.com/premium-photo/screwdriver-stands-new-furniture-sofa-home_493343-29578.jpg",
+    "https://img.freepik.com/free-photo/mid-century-interior-design_23-2151902083.jpg",
+    "https://img.freepik.com/free-photo/realistic-interior-design-with-furniture_23-2151439772.jpg"
   ],
   "isPremium": false,
   "type": "apartment",
@@ -43,22 +47,27 @@ GET http://localhost:4000/offers/62711a50b0e24a624d49ffdc HTTP/1.1
 
 ## Удалить объявление по идентификатору
 DELETE http://localhost:4000/offers/62711a50b0e24a624d49ffdc HTTP/1.1
+Authorization: Bearer <token>
 
 ###
 
 ## Изменить объявление по идентификатору
 PATCH http://localhost:4000/offers/62711a50b0e24a624d49ffdc HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "title": "Современные апартаменты рядом с парком",
   "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
   "city": "Cologne",
-  "previewUrl": "https://example.com/images/preview.jpg",
+  "previewUrl": "https://img.freepik.com/premium-photo/living-room-with-view-city-cityscape_501340-674.jpg",
   "images": [
-    "https://example.com/images/apartment-1.jpg",
-    "https://example.com/images/apartment-2.jpg",
-    "https://example.com/images/apartment-3.jpg"
+    "https://img.freepik.com/premium-photo/cozy-home-insulation_810293-158980.jpg",
+    "https://img.freepik.com/premium-photo/modern-minimalistic-interior-design-light-bright-monochrome-room-with-black-white-furniture-clean-white-walls-huge-windows_267786-4897.jpg",
+    "https://img.freepik.com/free-photo/modern-apartment-with-beautiful-furniture-wide-window_1268-27958.jpg",
+    "https://img.freepik.com/premium-photo/screwdriver-stands-new-furniture-sofa-home_493343-29578.jpg",
+    "https://img.freepik.com/free-photo/mid-century-interior-design_23-2151902083.jpg",
+    "https://img.freepik.com/free-photo/realistic-interior-design-with-furniture_23-2151439772.jpg"
   ],
   "isPremium": false,
   "type": "apartment",
@@ -83,16 +92,19 @@ GET http://localhost:4000/offers/premium/Cologne HTTP/1.1
 ###
 
 ## Получить список избранных
-GET HTTP/1.1 http://localhost:4000/offers/favorite HTTP/1.1
+GET http://localhost:4000/offers/favorite HTTP/1.1
+Authorization: Bearer <token>
 
 ###
 
 ## Добавить объявление в избранные
 POST http://localhost:4000/offers/favorite/62711a50b0e24a624d49ffdc HTTP/1.1
+Authorization: Bearer <token>
 
 ###
 
 ## Удалить объявление из избранных
 DELETE http://localhost:4000/offers/favorite/62711a50b0e24a624d49ffdc HTTP/1.1
+Authorization: Bearer <token>
 
 ###

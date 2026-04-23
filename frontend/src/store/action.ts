@@ -146,25 +146,30 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], { extra: Extra }>
 
 export const postOffer = createAsyncThunk<void, NewOffer, { extra: Extra }>(
   Action.POST_OFFER,
-  async (newOffer, { extra }) => {
+  async (newOffer, { extra, dispatch }) => {
     const { api, history } = extra;
     const { data } = await api.post<BackendOffer>(ApiRoute.Offers, adaptNewOfferToApi(newOffer));
+    await dispatch(fetchOffers());
     history.push(`${AppRoute.Property}/${data.id}`);
   });
 
 export const editOffer = createAsyncThunk<void, Offer, { extra: Extra }>(
   Action.EDIT_OFFER,
-  async (offer, { extra }) => {
+  async (offer, { extra, dispatch }) => {
     const { api, history } = extra;
     const { data } = await api.patch<BackendOffer>(`${ApiRoute.Offers}/${offer.id}`, adaptOfferToApiPatch(offer));
+    await dispatch(fetchOffers());
+    await dispatch(fetchFavoriteOffers());
     history.push(`${AppRoute.Property}/${data.id}`);
   });
 
 export const deleteOffer = createAsyncThunk<void, string, { extra: Extra }>(
   Action.DELETE_OFFER,
-  async (id, { extra }) => {
+  async (id, { extra, dispatch }) => {
     const { api, history } = extra;
     await api.delete(`${ApiRoute.Offers}/${id}`);
+    await dispatch(fetchOffers());
+    await dispatch(fetchFavoriteOffers());
     history.push(AppRoute.Root);
   });
 
@@ -217,7 +222,8 @@ export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: 
     const { data } = await api.post<LoginResponse>(ApiRoute.Login, { email, password });
 
     Token.save(data.token);
-    dispatch(fetchFavoriteOffers());
+    await dispatch(fetchOffers());
+    await dispatch(fetchFavoriteOffers());
     history.push(AppRoute.Root);
 
     return data.email;
@@ -225,10 +231,11 @@ export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: 
 
 export const logoutUser = createAsyncThunk<void, undefined, { extra: Extra }>(
   Action.LOGOUT_USER,
-  async (_, { extra }) => {
+  async (_, { extra, dispatch }) => {
     const { history } = extra;
 
     Token.drop();
+    await dispatch(fetchOffers());
     history.push(AppRoute.Login);
   });
 

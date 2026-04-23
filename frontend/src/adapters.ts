@@ -1,6 +1,10 @@
 import { BACKEND_URL, DEFAULT_OFFER_IMAGES } from './const';
 import { Comment, NewOffer, Offer, UserRegister } from './types/types';
 
+const OFFER_IMAGE_COUNT = DEFAULT_OFFER_IMAGES.length;
+const USER_TYPE_PRO = 'pro';
+const USER_TYPE_ORDINARY = 'ordinary';
+
 type BackendLocation = {
   latitude: number;
   longitude: number;
@@ -16,7 +20,7 @@ type BackendUser = {
   name: string;
   email: string;
   avatarPath: string;
-  type: 'ordinary' | 'pro';
+  type: typeof USER_TYPE_ORDINARY | typeof USER_TYPE_PRO;
 };
 
 type BackendOfferPreview = {
@@ -52,23 +56,27 @@ type BackendComment = {
 };
 
 const toAbsoluteUrl = (value: string): string => {
-  if (/^https?:\/\//i.test(value)) {
+  try {
+    if (/^https?:\/\//i.test(value)) {
+      return value;
+    }
+
+    return new URL(value, BACKEND_URL).toString();
+  } catch {
     return value;
   }
-
-  return new URL(value, BACKEND_URL).toString();
 };
 
 const getDefaultImages = (): string[] => [...DEFAULT_OFFER_IMAGES];
 
 const getOfferImages = (images?: string[]): string[] =>
-  images && images.length === 6 ? images : getDefaultImages();
+  images && images.length === OFFER_IMAGE_COUNT ? images : getDefaultImages();
 
 const mapUser = (user: BackendUser) => ({
   name: user.name,
   email: user.email,
   avatarUrl: toAbsoluteUrl(user.avatarPath),
-  isPro: user.type === 'pro',
+  isPro: user.type === USER_TYPE_PRO,
 });
 
 const mapOfferBase = (offer: BackendOfferPreview) => ({
@@ -122,6 +130,7 @@ export const adaptComment = (comment: BackendComment): Comment => ({
 export const adaptNewOfferToApi = (offer: NewOffer) => ({
   title: offer.title,
   description: offer.description,
+  postDate: offer.postDate ?? new Date().toISOString(),
   city: offer.city.name,
   previewUrl: offer.previewImage,
   images: getOfferImages(),
@@ -153,5 +162,5 @@ export const adaptRegisterPayload = (user: UserRegister) => ({
   name: user.name,
   email: user.email,
   password: user.password,
-  type: user.isPro ? 'pro' as const : 'ordinary' as const,
+  type: user.isPro ? USER_TYPE_PRO : USER_TYPE_ORDINARY,
 });

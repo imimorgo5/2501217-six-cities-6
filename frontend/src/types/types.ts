@@ -58,6 +58,7 @@ export type Offer = {
 export type NewOffer = {
   title: string;
   description: string;
+  postDate?: string;
   city: City;
   previewImage: string;
   isPremium: boolean;
